@@ -8,10 +8,10 @@ function App() {
     <div>
       <h1>Todo List</h1>
 
-       <AddTodoForm/> 
-      <TodoList/>
-      
-      
+      <AddTodoForm />
+      <TodoList />
+
+
     </div>
   );
 }
