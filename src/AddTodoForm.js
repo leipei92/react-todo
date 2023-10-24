@@ -3,12 +3,12 @@ import React from 'react';
 const AddTodoForm = (props) => {
   const handleAddTodo = (event) => {
     event.preventDefault();
-    const form = event.target;
-    const title = document.getElementById('todoTitle');
-    const todoTitle = title.value;
+    const searchForm = event.target;
+   
+    const todoTitle = searchForm.title.value;
     console.log(todoTitle);
     props.onAddTodo(todoTitle);
-    form.reset();
+    searchForm.reset();
 
   }
 

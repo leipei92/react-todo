@@ -21,12 +21,15 @@ const todoList = [
 
 const TodoList = () => {
   return (
+
     <ul>
-      {todoList.map(({ id, title }) =>
-        <TodoListItem key={id} todo={title} />)}
+      {todoList.map(function (item) {
+        return <TodoListItem key={item.id} todo={item.title} />;
+      })}
     </ul>
 
   )
 }
+
 
 export default TodoList;
