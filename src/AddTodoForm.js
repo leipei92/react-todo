@@ -12,6 +12,9 @@ const AddTodoForm = ({ onAddTodo }) => {
 
   const handleAddTodo = (event) => {
     event.preventDefault();
+    if (!todoTitle) {
+      throw new Error("Can't be empty") 
+    }
     onAddTodo({
       title: todoTitle,
       id: Date.now()

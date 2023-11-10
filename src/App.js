@@ -14,10 +14,6 @@ function App() {
     <div>
       <h1>Todo List</h1>
       <AddTodoForm onAddTodo={addTodo} />
-      {/* is this addTodo below doing anything? Why is it here? ask during mentor session*/}
-      <p>
-        {addTodo}
-      </p>
       <TodoList todoList={todoList} />
 
     </div>
