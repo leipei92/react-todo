@@ -13,7 +13,8 @@ const AddTodoForm = ({ onAddTodo }) => {
   const handleAddTodo = (event) => {
     event.preventDefault();
     if (!todoTitle) {
-      throw new Error("Can't be empty")
+      alert("Can't be empty!");
+      return
     }
     onAddTodo({
       title: todoTitle,
@@ -28,6 +29,7 @@ const AddTodoForm = ({ onAddTodo }) => {
 
     <form onSubmit={handleAddTodo}>
       <InputWithLabel
+        name="appTodo"
         id="todoTitle"
         value={todoTitle}
         type="text"

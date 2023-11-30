@@ -25,13 +25,18 @@ function App() {
 
   const removeTodo = (id) => {
 
-    const todoListFiltered = todoList.filter(
-      (todo) => todo.id !== id
+
+
+    setTodoList(prevTodoList => {
+
+      return prevTodoList.filter(
+        (todo) => todo.id !== id
+      )
+    }
     )
-    setTodoList(todoListFiltered)
   }
   const addTodo = (newTodo) => {
-    setTodoList([...todoList, newTodo]);
+    setTodoList(prevTodoList => [...prevTodoList, newTodo]);
   }
 
   return (

@@ -7,7 +7,6 @@ const InputWithLabel = ({
     type,
     name,
     value,
-    isFocused,
     onChange,
 }) => {
 
@@ -23,10 +22,10 @@ const InputWithLabel = ({
         <>
             <label htmlFor={id} > {children} </label>
             <input
-                isFocused
+                id={id}
                 ref={inputRef}
                 type={type}
-                name={children}
+                name={name}
                 value={value}
                 onChange={onChange}
 
