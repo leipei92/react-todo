@@ -25,10 +25,7 @@ function App() {
 
   const removeTodo = (id) => {
 
-
-
     setTodoList(prevTodoList => {
-
       return prevTodoList.filter(
         (todo) => todo.id !== id
       )
