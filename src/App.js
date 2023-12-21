@@ -3,6 +3,7 @@ import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
 
 
+
 const AIRTABLE_API_URL = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}`;
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
   const [todoList, setTodoList] = React.useState([])
   const [isloading, setIsLoading] = React.useState(true)
 
-  const fetchData = async () => {
+  const fetchData = React.useCallback(async () => {
 
     const options = {
       method: 'GET',
@@ -32,9 +33,9 @@ function App() {
     } catch (error) {
       console.log(error.message)
     }
-  }
+  }, [])
 
-  const addTodo = async (todo) => {
+  const addTodo = async ({ title }) => {
     const options = {
       method: "POST",
       headers: {
@@ -43,7 +44,7 @@ function App() {
       },
       body: JSON.stringify({
         fields: {
-          title: todo.title,
+          title
         },
       }),
     };
@@ -54,8 +55,6 @@ function App() {
       }
 
       const airtableData = await response.json();
-      console.log(airtableData);
-
       setTodoList((prevTodoList) => [
         ...prevTodoList,
         {
@@ -70,9 +69,8 @@ function App() {
 
 
   const removeTodo = async (id) => {
-    const url = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}`
     try {
-      const response = await fetch(`${url}/${id}`, {
+      const response = await fetch(`${AIRTABLE_API_URL}/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_TOKEN}`,
@@ -93,17 +91,7 @@ function App() {
 
   React.useEffect(() => {
     fetchData()
-  }, [])
-
-  React.useEffect(() => {
-    const savedTodoList = JSON.parse(localStorage.getItem('savedTodoList'));
-    if (savedTodoList && savedTodoList.length > 0) {
-      setTodoList(savedTodoList);
-    } else {
-      fetchData();
-    }
-  }, []);
-
+  }, [fetchData])
 
 
   return (
