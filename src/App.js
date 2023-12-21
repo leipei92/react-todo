@@ -3,19 +3,21 @@ import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
 
 
+const AIRTABLE_API_URL = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}`;
+
 function App() {
 
   const [todoList, setTodoList] = React.useState([])
   const [isloading, setIsLoading] = React.useState(true)
 
   const fetchData = async () => {
+
     const options = {
       method: 'GET',
       headers: { Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_TOKEN}` }
     }
-    const url = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}`;
     try {
-      const response = await fetch(url, options)
+      const response = await fetch(AIRTABLE_API_URL, options)
 
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
@@ -23,8 +25,8 @@ function App() {
 
       const data = await response.json();
       const todos = data.records.map((todo) => {
-        return { title: todo.fields.Title, id: todo.id, }
-      }) //question about return
+        return { title: todo.fields.title, id: todo.id, }
+      })
       setTodoList(todos)
       setIsLoading(false)
     } catch (error) {
@@ -45,9 +47,8 @@ function App() {
         },
       }),
     };
-    const url = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}`;
     try {
-      const response = await fetch(url, options);
+      const response = await fetch(AIRTABLE_API_URL, options);
       if (!response.ok) {
         throw new Error(`Something went wrong: ${response.status}`);
       }
@@ -99,7 +100,7 @@ function App() {
     if (savedTodoList && savedTodoList.length > 0) {
       setTodoList(savedTodoList);
     } else {
-      fetchData(); // Fetch data from API if local storage is empty. Do I need to pass through local storage at all?
+      fetchData();
     }
   }, []);
 
