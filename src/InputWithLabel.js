@@ -1,5 +1,6 @@
 
 import React from 'react';
+import style from './InputWithLabel.module.css'
 
 const InputWithLabel = ({
     id,
@@ -28,6 +29,7 @@ const InputWithLabel = ({
                 name={name}
                 value={value}
                 onChange={onChange}
+                className={style.input}
 
             />
         </>
