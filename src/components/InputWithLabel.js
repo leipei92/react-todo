@@ -1,6 +1,7 @@
 
 import React from 'react';
-import style from './InputWithLabel.module.css'
+import style from './InputWithLabel.module.css';
+import PropTypes from 'prop-types';
 
 const InputWithLabel = ({
     id,
@@ -35,5 +36,14 @@ const InputWithLabel = ({
         </>
     );
 };
+InputWithLabel.propTypes = {
+    id: PropTypes.func.isRequired,
+    children: PropTypes.func.isRequired,
+    type: PropTypes.func.isRequired,
+    name: PropTypes.func.isRequired,
+    value: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+};
+
 
 export default InputWithLabel;
