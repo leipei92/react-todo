@@ -1,22 +1,22 @@
 import { Link } from "react-router-dom";
-import styles from "./LandingPage.module.css";
+import style from "./LandingPage.module.css";
 
 const LandingPage = () => {
     return (
         <>
             <main>
-                <div className={styles.container}>
+                <div className={style.landingContainer}>
                     <h1>Welcome to My Todo App</h1>
-                    <p>Click on VIEW TO DO LIST to start getting organized</p>
+                    <p>Click on VIEW TO DO LIST to start adding tasks</p>
                 </div>
-                <div className={styles.buttonContainer}>
-                    <Link to="/TodoList" className={styles.button}>
+                <div className={style.buttonContainer}>
+                    <Link to="/TodoList" className={style.button}>
                         View Todo List
                     </Link>
 
                 </div>
             </main>
-            <footer className={styles.footer}>
+            <footer className={style.footer}>
                 <footer> <small>&copy; Copyright 2024, AloyDesign</small> </footer>
             </footer>
         </>

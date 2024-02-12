@@ -3,3 +3,7 @@
     list-style-type: none;
 
 }
+
+li {
+    border-right: none;
+}

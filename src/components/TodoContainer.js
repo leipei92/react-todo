@@ -4,21 +4,25 @@ import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
 
 
+
 const AIRTABLE_API_URL = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}`;
 
-function TodoContainer() {
-
-    const [todoList, setTodoList] = React.useState([])
-    const [isLoading, setIsLoading] = React.useState(true)
+function TodoContainer({ REACT_APP_TABLE_NAME }) {
+    const [todoList, setTodoList] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(true);
+    const [isAscending, setIsAscending] = React.useState(true);
+    const [sortField, setSortField] = React.useState('createdTime');
 
     const fetchData = React.useCallback(async () => {
-
         const options = {
             method: 'GET',
             headers: { Authorization: `Bearer ${process.env.REACT_APP_AIRTABLE_API_TOKEN}` }
         }
+        const sortDirection = isAscending ? 'asc' : 'desc';
+        const AIRTABLE_API_URL = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}?view=Grid%20view&sort[0][field]=title&sort[0][direction]=${sortDirection}`;
+
         try {
-            const response = await fetch(AIRTABLE_API_URL, options)
+            const response = await fetch(AIRTABLE_API_URL, options);
 
             if (!response.ok) {
                 throw new Error(`Error: ${response.status}`);
@@ -26,14 +30,31 @@ function TodoContainer() {
 
             const data = await response.json();
             const todos = data.records.map((todo) => {
-                return { title: todo.fields.title, id: todo.id, }
-            })
-            setTodoList(todos)
-            setIsLoading(false)
+                return { title: todo.fields.title, id: todo.id, createdTime: todo.createdTime }
+            });
+            setTodoList(todos);
+            setIsLoading(false);
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
-    }, [])
+    }, [isAscending, sortField]);
+
+    React.useEffect(() => {
+        fetchData();
+    }, [REACT_APP_TABLE_NAME, isAscending, fetchData]);
+
+    const toggleSortOrder = () => {
+        setIsAscending((prevIsAscending) => !prevIsAscending);
+    };
+
+    const toggleSortByTime = (field) => {
+        if (field === sortField) {
+            setIsAscending((prevIsAscending) => !prevIsAscending);
+        } else {
+            setSortField(field);
+            setIsAscending(true);
+        }
+    };
 
     const addTodo = async ({ title }) => {
         const options = {
@@ -60,6 +81,7 @@ function TodoContainer() {
                 {
                     id: airtableData.id,
                     title: airtableData.fields.title,
+                    createdTime: airtableData.fields.createdTime
                 },
             ]);
         } catch (error) {
@@ -87,20 +109,31 @@ function TodoContainer() {
             console.error('Error:', error.message);
 
         }
-    }
+    };
 
-    React.useEffect(() => {
-        fetchData()
-    }, [fetchData])
+
+
+
+
 
     return (
         <div className={style.container}>
             <h1 className={style.header}>Todo List</h1>
             <AddTodoForm onAddTodo={addTodo} />
+
+            <button className={style.toggleButton} onClick={toggleSortOrder}>Sort by Ascending/Descending</button>
+
+
+            <button className={style.toggleButton} onClick={() => toggleSortByTime('createdAt')}>
+                Sort by Created Time
+            </button>
+
+
             {isLoading ? (
                 <p className={style.loading}>Loading...</p>
             ) : (
                 <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
+
             )}
         </div>
     );
@@ -108,3 +141,4 @@ function TodoContainer() {
 }
 
 export default TodoContainer;
+
