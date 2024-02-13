@@ -1,60 +1,31 @@
-body {
-    margin: 2em;
-    background-image: url("../../react-todo/public/image/backgroundImage.jpg");
-    background-size: cover;
-    height: 100%;
-    background-position: center;
-    background-repeat: round;
-    font-family: 'Lora', serif;
-    color: #ffffff;
+.appList {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #302f30;
+
 }
 
-.container {
-    margin: 40%;
-    padding: 30px;
-    width: calc(100% - 3em);
-
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    border: 2px solid #fff;
+li {
+    float: left;
+    border-right: 1px solid #bbb;
 }
 
-.header {
 
-    border-radius: 100px;
-    text-align: center;
-    justify-content: center;
-    font-size: larger;
-    text-decoration: none;
+
+li a {
+    display: block;
     color: white;
-}
-
-a:-webkit-any-link {
-    color: rgb(246, 246, 246);
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-
-}
-
-nav ul {
-
-    display: flex;
-    list-style: none;
-
-}
-
-nav li {
-
+    text-align: center;
+    padding: 14px 16px;
     text-decoration: none;
-    padding-left: 1rem;
 }
+
+li a:hover {
+    background-color: #111;
+}
+
 
 @media only screen and (max-width: 600px) {
     nav {
@@ -72,7 +43,7 @@ nav li {
 }
 
 .loading {
-    color: rgb(207, 233, 197);
+    color: rgb(77, 212, 23);
 }
 
 @media all and (max-width: 800px) {

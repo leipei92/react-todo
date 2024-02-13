@@ -37,11 +37,11 @@ const InputWithLabel = ({
     );
 };
 InputWithLabel.propTypes = {
-    id: PropTypes.func.isRequired,
-    children: PropTypes.func.isRequired,
-    type: PropTypes.func.isRequired,
-    name: PropTypes.func.isRequired,
-    value: PropTypes.func.isRequired,
+    id: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    type: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
 };
 
