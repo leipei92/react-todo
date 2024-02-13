@@ -9,7 +9,11 @@ function TodoListItem({ todo, onRemoveTodo }) {
 }
 
 TodoListItem.propTypes = {
-    todo: PropTypes.func.isRequired,
+    todo: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        createdTime: PropTypes.string.isRequired
+    }),
     onRemoveTodo: PropTypes.func.isRequired,
 };
 

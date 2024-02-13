@@ -21,7 +21,7 @@ const App = () => {
       </nav>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/TodoList" element={<TodoContainer />} />
+        <Route path="/TodoList" element={<TodoContainer tableName={process.env.REACT_APP_TABLE_NAME} />} />
         <Route path="/new" element={< Contact />} />
       </Routes>
     </BrowserRouter>
